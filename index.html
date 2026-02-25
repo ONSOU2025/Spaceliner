@@ -98,6 +98,55 @@
             </div>
         </section>
 
+        <section id="news">
+    <h2 class="sl-title">NEWS</h2>
+    <div id="news-container" class="news-scroll-area">
+        <p class="loading">LOADING DATA...</p>
+    </div>
+</section>
+
+<script>
+    async function loadNews() {
+        try {
+            // news.json を読み込み（同じディレクトリにある想定）
+            const response = await fetch('news.json');
+            const data = await response.json();
+            const container = document.getElementById('news-container');
+            container.innerHTML = ''; // ローディング表示を消去
+
+            data.newsList.forEach(item => {
+                const newsItem = document.createElement('div');
+                newsItem.className = 'news-item';
+
+                // 本文の改行コード(\n)を <br> に変換
+                const formattedBody = item.body.replace(/\n/g, '<br>');
+
+                let html = `
+                    <div class="news-meta">
+                        <span class="news-date">${item.date}</span>
+                        <h3 class="news-headline">${item.title}</h3>
+                    </div>
+                    <div class="news-body">${formattedBody}</div>
+                `;
+
+                // リンクがある場合のみボタンを表示
+                if (item.linkUrl) {
+                    html += `<a href="${item.linkUrl}" class="news-link" target="_blank">VIEW DETAILS</a>`;
+                }
+
+                newsItem.innerHTML = html;
+                container.appendChild(newsItem);
+            });
+        } catch (error) {
+            console.error('Error loading news:', error);
+            document.getElementById('news-container').innerHTML = '<p class="error">FAILED TO LOAD NEWS.</p>';
+        }
+    }
+
+    // 実行
+    loadNews();
+</script>
+
         <section id="download">
             <h2 class="sl-title">DOWNLOAD</h2>
             <div class="dl-card">
@@ -130,4 +179,5 @@
     </footer>
 
 </body>
+
 </html>
