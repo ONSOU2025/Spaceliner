@@ -21,7 +21,7 @@
             <li><a href="#top">TOP</a></li>
             <li><a href="#news">NEWS</a></li>
             <li><a href="#tracks">MUSIC</a></li>
-            <li><a href="#judgement">SYSTEM</a></li>
+            <li><a href="support.html">SUPPORT</a></li>
             <li><a href="#download">DL</a></li>
         </ul>
     </nav>
@@ -41,7 +41,7 @@
         <section id="news">
             <h2 class="sl-title">NEWS</h2>
             <div id="news-container" class="news-scroll-area">
-                <p class="loading">INITIALIZING SYSTEM...</p>
+                <p class="loading">SYNCING DATA...</p>
             </div>
         </section>
 
@@ -106,7 +106,7 @@
                         <h4 class="sub-title">CAUTION</h4>
                         <ul>
                             <li>Zipは必ず「すべて展開」してください</li>
-                            <li>半角英数字のパスを推奨</li>
+                            <li>詳細情報はSUPPORTページを確認してください</li>
                         </ul>
                     </div>
                 </div>
@@ -118,42 +118,24 @@
         <p>PROJECT SPACELINER // BY KANKITU</p>
     </footer>
 
+    <script src="data.js"></script>
     <script>
-        async function loadNews() {
-            try {
-                // キャッシュを回避するためにタイムスタンプを付与
-                const cacheBuster = new Date().getTime();
-                const response = await fetch(`news.json?v=${cacheBuster}`);
-                const data = await response.json();
-                const container = document.getElementById('news-container');
-                container.innerHTML = '';
-
-                data.newsList.forEach(item => {
-                    const newsItem = document.createElement('div');
-                    newsItem.className = 'news-item';
-                    const formattedBody = item.body.replace(/\n/g, '<br>');
-
-                    let html = `
-                        <div class="news-meta">
-                            <span class="news-date">${item.date}</span>
-                            <h3 class="news-headline">${item.title}</h3>
-                        </div>
-                        <div class="news-body">${formattedBody}</div>
-                    `;
-
-                    if (item.linkUrl) {
-                        html += `<a href="${item.linkUrl}" class="news-link" target="_blank">VIEW DETAILS</a>`;
-                    }
-
-                    newsItem.innerHTML = html;
-                    container.appendChild(newsItem);
-                });
-            } catch (error) {
-                console.error('Error:', error);
-                document.getElementById('news-container').innerHTML = '<p class="error">SYNC ERROR: FAILED TO LOAD DATA.</p>';
-            }
+        function renderNews() {
+            const container = document.getElementById('news-container');
+            if(!container || !NEWS_DATA) return;
+            container.innerHTML = '';
+            NEWS_DATA.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'news-item';
+                const body = item.body.replace(/\n/g, '<br>');
+                let link = item.linkUrl ? `<a href="${item.linkUrl}" class="news-link" target="_blank">VIEW DETAILS</a>` : '';
+                div.innerHTML = `
+                    <div class="news-meta"><span class="news-date">${item.date}</span><h3 class="news-headline">${item.title}</h3></div>
+                    <div class="news-body">${body}</div>${link}`;
+                container.appendChild(div);
+            });
         }
-        loadNews();
+        renderNews();
     </script>
 </body>
 </html>
