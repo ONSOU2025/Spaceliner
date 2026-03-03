@@ -37,12 +37,6 @@ const NEWS_DATA = [
       "linkUrl": "https://onsou2025.github.io/ONSOU-Home/"
     },
     {
-      "date": "2026/02/06",
-      "title": "公式Xをフォローしよう！",
-      "body": "最新情報は公式Xで発信中です。\nぜひチェックしてください！",
-      "linkUrl": ""
-    },
-    {
       "date": "2026/02/01",
       "title": "メンテナンス終了",
       "body": "修正が完了しました。ご協力ありがとうございました。",
@@ -73,6 +67,7 @@ const FAQ_DATA = [
         a: "個人開発のソフトであるため、Windows SmartScreen等で警告が出る場合があります。「詳細情報」をクリックし「実行」を選択してください。"
     }
 ];
+
 
 
 
