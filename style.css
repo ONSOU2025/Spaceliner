@@ -168,3 +168,50 @@ footer { padding: 80px 0; text-align: center; font-size: 0.6rem; letter-spacing:
     .side-nav { display: none; }
     section { padding: 60px 5%; }
 }
+
+/* --- Bug Status Board --- */
+.status-tag {
+    display: inline-block;
+    padding: 3px 12px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    border-radius: 2px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+/* ステータス別カラー */
+.status-open { background: var(--accent-red); color: #fff; text-shadow: 0 0 5px #000; }
+.status-work { background: #ffaa00; color: #000; }
+.status-done { background: var(--accent-blue); color: #000; }
+
+.bug-card {
+    background: var(--panel-bg);
+    border: 1px solid var(--ui-mid);
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.bug-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; width: 3px; height: 100%;
+}
+.bug-card.high::before { background: var(--accent-red); box-shadow: 0 0 10px var(--accent-red); }
+.bug-card.mid::before { background: #ffaa00; }
+.bug-card.low::before { background: var(--accent-blue); }
+
+.tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 15px;
+}
+.tag-item {
+    font-size: 0.65rem;
+    color: var(--accent-blue);
+    background: rgba(0, 210, 255, 0.1);
+    border: 1px solid rgba(0, 210, 255, 0.3);
+    padding: 2px 8px;
+}
